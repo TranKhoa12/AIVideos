@@ -1,0 +1,39 @@
+node_modules/
+tools/
+dist/
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.log
+
+# Local project inputs: keep folder documentation only.
+/assets/images/*
+!/assets/images/README.md
+/assets/videos/*
+!/assets/videos/README.md
+/assets/audio/*
+!/assets/audio/README.md
+/assets/logos/*
+!/assets/logos/README.md
+
+# All generated deliverables, including posts, stay on this machine.
+/output/*
+!/output/.gitkeep
+/temp/*
+!/temp/.gitkeep
+
+# Project-specific jobs, components, configuration and historical scripts.
+/jobs/*.json
+!/jobs/job.schema.json
+/src/projects/
+/src/generated/
+/config/*.local.json
+/config/voice-defaults.json
+/config/sao-viet-binh-thanh.json
+/scripts/*sao-viet*
+/scripts/tts-zerotts-local.py
+/scripts/voice-audition.md

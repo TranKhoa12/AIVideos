@@ -1,0 +1,111 @@
+# Huong dan cho Codex
+
+## Don dung luong sau moi phien ban (yeu cau moi nhat)
+
+- Nguoi dung da cho phep tu dong xoa cac phien ban video cu va du lieu phat sinh lien quan sau moi lan tao/sua video, nhung GIU TOAN BO bai viet/post. Quy tac nay uu tien hon cac dieu khoan giu phien ban cu ben duoi, chi trong pham vi don dep duoc mo ta o day; khong can hoi lai quyen xoa da duoc cap.
+- Chi don sau khi ban moi render thanh cong va da kiem tra dau ra. Neu dang cho duyet kich ban, render loi hoac kiem tra chua dat, giu ban cu. Giu ban moi nhat da kiem tra cho moi video/bo phien ban nen tang, khong xoa video doc lap khac cung du an. Cac ban cho Facebook/YouTube/Shorts cua cung dot giao la mot bo san pham, khong coi nhau la phien ban cu.
+- Duoc xoa video cu, anh bia/preview cu, phu de va credits sidecar cu, am thanh tong hop/mix/stem cu, job cu va thu muc temp/bundle/cache render rieng cua cac phien ban bi thay the. Chi xoa tep do quy trinh tao ra, da xac dinh ro thuoc phien ban cu va khong con duoc ban moi hay video khac tham chieu. Kiem tra tham chieu truoc khi xoa, ke ca cac composition/Root import job; cap nhat ma nguon va chay typecheck khi can, khong de du an hong sau don dep. Giu nguon/ghi cong va thong tin can thiet de tai hien ban moi nhat.
+- Tuyet doi giu `output/posts/` va moi tep bai viet/post o vi tri khac, ke ca bai viet cu. Giu anh/video/am thanh nguon nguoi dung cung cap, anh tai tu website, nhac goc co giay phep, logo du an/logo-chung, ho so/cau hinh, model/engine/thu vien dung chung va tai nguyen con duoc su dung. Khong xoa ca thu muc du an hoac ca `assets/audio/` theo mau ten; khong coi tep khong ro nguon goc la tep tam.
+- Truoc khi xoa, lap danh sach tep/thu muc cu the, resolve duong dan tuyet doi va xac nhan nam trong workspace dung pham vi, khong trung/bao gom duong dan bai post, nguon hoac san pham moi. Dung PowerShell `Remove-Item -LiteralPath` trong cung shell; chi de quy voi thu muc temp/phien ban da kiem tra an toan. Bao gon so phien ban/du lieu da don va dung luong giai phong. Day la quy tac cho cac lan tao/sua tiep theo; khong tu chay don hoi toan bo workspace chi vi nguoi dung cap nhat quy tac.
+
+## Vai tro va pham vi
+
+- Phan tach ma GitHub va du lieu local: tai nguyen du an, job, output, temp, tools va `src/projects/` khong commit. Composition rieng tung du an dat trong `src/projects/`, dang ky qua `config/projects.local.json` (id, component, exportName, job); chay `npm run setup` de sinh `src/generated/local-compositions.tsx` truoc khi render truc tiep. Root chi import registry tu sinh va composition dung chung, khong import job local truc tiep. Khong commit du lieu de sua loi missing import; sua registry/setup de ban clone sach van chay duoc. Bai post van giu local, khong dua len GitHub. Khi don job/composition cu, cap nhat registry local va chay setup de khong de tham chieu hong.
+- Logo dung chung: nguoi dung da chi dinh `assets/logos/logo-chung/` lam nguon logo cho tat ca video trong workspace, ke ca cac du an khac nhau. Day la tai nguyen dung chung da duoc cho phep; khong hoi lai quyen dung cheo du an. Khi tao/sua video, kiem tra tep va preview trong thu muc nay, chon bien the phu hop nen/khung hinh; dung cho video va anh bia, giu dung ti le, mau sac, khong cat mat logo. Ghi duong dan tep logo thuc te vao metadata job va dua vao tai nguyen render. Neu khong co tep doc duoc, bao thieu thay vi tu tao logo. Chi thay logo mac dinh khi nguoi dung chi dinh khac; khong tu render lai hay ghi de san pham cu chi vi quy tac nay.
+- Ho so trung tam Sao Viet da duoc nguoi dung xac nhan nam tai `config/sao-viet-binh-thanh.json`: Trung Tam Tin hoc Sao Viet Quan Binh Thanh - TPHCM; 193 Nguyen Xi, phuong Binh Thanh, TP.HCM (Quan Binh Thanh cu); Hotline/Zalo 0904 860 899; email tinhocsaovietbinhthanh@gmail.com; website https://blogdaytinhoc.com. Doc file JSON de lay chu tieng Viet chinh xac. Ap dung cho cac video/bai viet Sao Viet tu nay, ke ca du an Sao Viet hien tai; khong hoi lai thong tin da cung cap. Uu tien website nay khi nghien cuu, khong nham don vi trung ten. Chon thong tin lien he vua du cho CTA video/anh bia de de doc, va them khoi lien he phu hop trong bai dang. Khong tu ghi de san pham cu; moi lan cap nhat tao phien ban moi. Thong tin nay do nguoi dung cung cap, khong gan nhan da xac minh tren web neu chua kiem tra.
+- Nhan yeu cau tao hoac sua video bang ngon ngu tu nhien trong cua so Codex.
+- Dieu khien cong viec bang ma nguon va cong cu trong workspace nay; khong tao giao dien web, backend API, form upload hay trang chinh sua video.
+- Chi su dung tai nguyen da co trong du an. Khong tai, tim kiem, hoac dua tai nguyen ben ngoai vao video neu nguoi dung chua yeu cau ro rang.
+- Khong goi dich vu AI ben ngoai neu chua duoc nguoi dung chap thuan.
+
+## Che do anh va yeu cau, Codex thuc hien tron goi
+
+- Giong dung chung cho moi video: doc `config/voice-defaults.json`. Theo yeu cau moi nhat, lay mau Mai Chi vua gui lam preset mac dinh, voi muc tieu giong nu mien Nam, tu nhien, vui ve, than thien. Dung `scripts/narrate-local.py` bang Python trong `tools/zerotts-env/` de cac du an dung nhat quan cung engine/model/preset; chi doi giong khi nguoi dung yeu cau.
+- Phan biet `requestedAccent` voi `presetAccent`: tai lieu Mai Chi chua xac nhan vung mien, nen khong duoc khang dinh model da dap ung giong mien Nam chuan. Luu gioi han nay vao job khi dung preset. Khong tu quay lai cac giong nguoi dung da tu choi.
+- Model va cau hinh giong duoc dung chung; moi du an tao loi doc moi trong `assets/audio/<project-id>/` va luu metadata giong vao job. Khong chen ban doc noi dung cua Sao Viet vao video du an khac.
+
+- Du an Sao Viet: nguoi dung yeu cau giong nu mien Nam, tu nhien vui ve. Da cai VieNeu-TTS v3 Turbo local; xem `scripts/vieneu-local.md`. Preset Kim Thanh va My Duyen duoc SDK gan nhan nu/mien Nam; khong dung Piper hoac chinh cao do de thay the yeu cau nay. Chat giong va cam xuc phai duoc danh gia qua mau nghe; neu khong nghe truc tiep, noi ro gioi han va dua mau cho nguoi dung.
+- Phan hoi moi nhat ve Sao Viet: nguoi dung thay Kim Thanh chua tu nhien va da tu choi ca hai mau doc lien My Duyen/Thuc Doan. Khong tu coi cac mau nay la phuong an dat. ASR chi kiem tra noi dung/thoi diem, khong chung minh giong tu nhien hay vui ve; khong tu gan nhan mien Nam cho preset ma tai lieu khong ghi vung mien.
+
+- Nguoi dung da giao Codex xem anh va tu quyet dinh cac yeu to dung can thiet theo muc tieu video: kich ban, thu tu anh, thoi luong canh, bo cuc, cat khung, hieu ung, chuyen canh, chu, phu de, loi doc, nhac va vi tri logo neu da co logo duoc cung cap cho du an. Khong hoi lai tung lua chon tham my; chi hoi khi thieu muc tieu/thong tin quan trong khong the suy ra hoac co yeu cau mau thuan.
+- Xem preview anh du kien su dung truoc khi chon cach dung. Chon hieu ung phuc vu noi dung, giu chu de chinh khi cat khung va bao dam chu de doc. Neu chua co ti le/thoi luong va co the suy ra hop ly tu kenh, muc tieu va anh, tu chon va ghi gia dinh vao job; neu khong the suy ra, hoi ngan gon.
+- Quyen tu quyet nay cho phep tu soan noi dung va chon hieu ung/chuyen canh phu hop, ke ca khi brief khong liet ke tung hieu ung. Khong tu tao logo thuong hieu, bia thong tin, gia hay cam ket tu anh. Duoc tim tai nhac mien phi nhu nguoi dung da cho phep, nhung phai kiem tra giay phep phu hop muc dich va luu nguon/ghi cong; khong goi dich vu AI online. Neu khong co nhac phu hop, bao ro gioi han.
+
+- Nguoi dung da cho phep tim va tai thu vien/model mien phi de chay local. Quyen nay cho phep cai cong cu trong workspace, khong cho phep goi dich vu AI online hoac lay noi dung media bat ky tren mang. TTS local: xem `scripts/local-audio.md` va dung `scripts/tts-local.py`; giu thong tin ghi cong model khi giao san pham. Viec tao nhac offline chua duoc tich hop.
+
+- Nguoi dung muon chi cung cap anh va yeu cau; Codex tu viet kich ban, chia canh, chu hien thi, loi doc, dung va xuat video khi brief cho phep. Khong bat nguoi dung tu soan job JSON hoac kich ban. Quyen tu viet noi dung nay khong cho phep bia thong tin san pham, gia, cam ket hay su kien khong co can cu.
+- Chi dung cong cu am thanh chay tren may. Khong goi API TTS, tao nhac, dich vu AI hay xu ly media ben ngoai; khong gui anh hoac noi dung cho dich vu ngoai. Viec trao doi va soan kich ban trong phien Codex hien tai van la cach dieu khien du an, khong dong nghia da co mo hinh viet kich ban offline.
+- Tu dong chon chi tiet nho phu hop brief. Neu thieu thong tin quan trong nhu ti le video hay muc dich, hoi ngan gon truoc khi tao job. Neu nguoi dung da giao tu viet, khong coi viec chua cung cap loi dan la thieu thong tin bat buoc.
+- Truoc khi hua tao giong doc, kiem tra engine, model, ngon ngu va kha nang tong hop thuc te tren may. Khong dung giong ngon ngu khac de doc tieng Viet. Neu thieu engine/model, bao ro va thong nhat cach bo sung; khong tu tai model, cai cong cu hoac thay bang dich vu online.
+- Nhac nen dung tep local duoc nguoi dung chi dinh; neu chua co nhac/model local, bao gioi han va hoi lua chon phu hop, khong am tham bo nhac da yeu cau hay tu lay nhac tren mang.
+- Tai nguyen am thanh tao moi phai luu vao duong dan moi trong workspace, tach khoi tep nguon va giu lai dau ra cu. Chi bao hoan tat khi da render va kiem tra theo quy trinh ben duoi.
+
+## Tao thu muc cho du an moi
+
+- Khi nguoi dung yeu cau tao du an moi, tu tao thu muc trong workspace, khong yeu cau nguoi dung tao thu cong hoac xac nhan lai thao tac nay.
+- Dung ten du an de tao ID kebab-case khong dau. Neu chua co ten hoac khong the suy ra ten tu yeu cau, hoi ten truoc khi tao. Chi chap nhan ID gom chu cai thuong, chu so va dau gach noi; khong dung duong dan do nguoi dung cung cap lam ID.
+- Tao `assets/images/<project-id>/`, `assets/videos/<project-id>/`, `assets/audio/<project-id>/`, `assets/logos/<project-id>/`, `output/videos/<project-id>/` va `output/previews/<project-id>/`.
+- Kiem tra trung ID trong ca thu muc tai nguyen, dau ra va ten job. Voi du an moi bi trung, them hau to so de co ID duy nhat; khong tron tai nguyen cu. Voi yeu cau tiep tuc du an cu da xac dinh, dung lai ID do va chi bo sung thu muc con con thieu.
+- Bao ID va duong dan cac thu muc de nguoi dung chep tai nguyen vao. Khong tao job video, composition hay render chi vi nguoi dung yeu cau tao thu muc; chi tao job khi da co brief va thong tin can thiet theo quy trinh ben duoi.
+- Moi job cua du an dung ten `<project-id>-<video-id>.json` trong `jobs/`; dau ra nam trong thu muc du an tuong ung, tep trung gian nam trong `temp/<job-id>/`. Duong dan tai nguyen trong job van tuong doi workspace.
+- Chi su dung tai nguyen thuoc du an dang lam; tai nguyen dung chung hoac cua du an khac chi duoc dung khi nguoi dung chi dinh.
+
+## Quy trinh tiep nhan va lap ke hoach
+
+- Truoc moi lan thuc hien tao video, phai hoi nguoi dung muc tieu cua video lan nay (vi du tuyen sinh, gioi thieu trung tam, chia se kien thuc); khong tu lay muc tieu cua video truoc lam mac dinh. Neu nguoi dung da neu ro muc tieu trong yeu cau hien tai thi ghi nhan, khong hoi lap lai. Co the gop cau hoi muc tieu va nen tang vao mot lan hoi ngan gon. Voi yeu cau sua doi thuong le cua video da duyet, giu muc tieu da xac nhan tru khi nguoi dung yeu cau doi.
+- Doi tuong xem mac dinh: hoc vien, nguoi di lam, sinh vien va nguoi co nhu cau hoc tin hoc. Tu dieu chinh cach dien dat theo khoa hoc/muc tieu; chi hoi them neu can thu hep doi tuong de quyet dinh noi dung.
+- Cach giao ban dau bat buoc: gui y tuong va kich ban de nguoi dung xem va duyet truoc khi dung. Ban de xuat gom concept, hook, thong diep, thu tu canh/anh, chu tren hinh, loi doc, thoi luong/ti le du kien, dinh huong am nhac va CTA; neu co nguon website thi neu nguon du kien dung. Duoc nghien cuu, xem anh va soan ban nhap de hoan thien de xuat, nhung cho nguoi dung chap thuan truoc khi tong hop loi doc, dung composition va render video. Sau khi duyet, tu xu ly cac chi tiet tham my trong pham vi kich ban, khong hoi lai tung hieu ung. Neu thay doi dang ke thong diep/kich ban da duyet, gui lai phan thay doi de duyet.
+- Bai dang can viet day du, co noi dung cu the va icon/emoji phu hop, khong chi vai dong caption chung chung. Mac dinh gom hook, gioi thieu chu de/khoa hoc, cac diem noi bat co can cu, loi moi tuong tac/CTA, khoi lien he theo ho so trung tam va hashtag; YouTube co tieu de va mo ta rieng. Chia doan de doc, dung icon de dan y vua phai. Do dai theo nen tang va noi dung, khong keo dai bang thong tin lap lai; khong bia chuong trinh hoc, hoc phi, chung chi, uu dai hay cam ket. Neu thieu du lieu de viet sau hon, nghien cuu nguon da duoc phep thay vi tu suy dien.
+ - Moi video moi phai co anh bia/thumbnail di kem, ke ca cac phien ban sua doi neu hinh anh hoac thong diep thay doi. Tu chon anh chu dao, cat khung, chu ngan va logo da cung cap de phu hop noi dung video va nen tang/vi tri dang da xac nhan; kiem tra thong so nen tang khi can. Neu nhieu nen tang can ti le khac nhau, tao anh bia rieng, khong keo gian. Chi dung tai nguyen du an, khong tu tao logo hay bia thong tin. Anh bia phai doc ro khi thu nho, giu chu the va vung an toan, khong chi lay tuy tien frame dau. Luu PNG/JPEG ten duy nhat trong `output/covers/<project-id>/`, ghi duong dan va nen tang vao metadata job; xem anh xuat thuc te truoc khi giao cung video va bai dang. Khong ghi de anh bia cu.
+0. Truoc moi video moi, xac dinh nen tang va vi tri dang (vi du TikTok, Facebook Reels/bang tin, YouTube Shorts/video thuong). Neu brief chua noi ro, bat buoc hoi ngan gon va cho cau tra loi truoc khi chon format/tao job; khong tu mac dinh ngang hoac doc. Neu da noi ro trong yeu cau hien tai, khong hoi lai. Voi sua doi video cu, giu nen tang da xac nhan tru khi nguoi dung doi.
+   - Tu nen tang/vi tri dang, Codex tu chon ti le, do phan giai, cat khung, vung an toan cho chu/logo/phu de, nhip dung va thoi luong phu hop. Luu nen tang va quyet dinh nay trong metadata job. Neu dang nhieu nen tang can format khac nhau, tao cac ban dung rieng va giu chu the khi cat, khong chi keo gian video.
+   - Moi video phai kem bai viet cho tung nen tang: tieu de/hook, noi dung mo ta/caption, loi keu goi hanh dong va hashtag phu hop. Dua tren thong tin da xac nhan, khong bia hoc phi, dia chi, so dien thoai hay cam ket. Luu tep Markdown ten duy nhat trong `output/posts/<project-id>/`, ghi duong dan vao metadata job va giao cung video. Chi soan bai; viec tu dang len nen tang can yeu cau rieng.
+1. Tom tat muc dich, doi tuong xem, thoi luong, ti le khung hinh, ngon ngu, phong cach, am thanh va dinh dang dau ra tu yeu cau.
+2. Neu thieu thong tin lam thay doi dang ke ket qua (vi du khong ro video ngang/doc, khong ro quyen su dung tai nguyen, hoac khong co loi dan), hoi lai truoc khi tao job. Neu chi thieu chi tiet nho, chon mac dinh hop ly va ghi ro vao job.
+3. Kiem tra cau truc thu muc va liet ke tep trong `assets/images/`, `assets/videos/`, `assets/audio/`, `assets/logos/`. Chi doc metadata/preview can thiet; khong sua hoac di chuyen tep nguon.
+4. Kiem tra tep co doc duoc, loai tep, kich thuoc, thoi luong video/am thanh, kich thuoc anh va ty le khung hinh. Dung FFprobe/FFmpeg neu can; bao ro tep loi, thieu, hoac khong tuong thich.
+5. Lap danh sach tai nguyen du kien su dung va doi chieu voi yeu cau. Khong tu y dua mot tai nguyen vao chi vi no dang co trong thu muc.
+
+## Chuyen yeu cau thanh job
+
+- Moi video moi co mot tep JSON rieng trong `jobs/`, ten tep theo `kebab-case` va khong trung tep da ton tai.
+- Dung `jobs/job.schema.json` lam hop dong ban dau. Job can ghi ro `id`, `title`, kich thuoc, FPS, tong so frame va cac scene theo thu tu.
+- Moi scene ghi thoi luong bang frame, duong dan tai nguyen tuong doi workspace, noi dung chu (neu co), va chuyen canh (neu co).
+- Tong thoi luong cac scene phai khop `format.durationInFrames`; doi chieu ti le khung hinh voi yeu cau. Khong them noi dung, logo, loi ke, nhac, hoac thong diep ma nguoi dung chua yeu cau.
+- Luu ban tom tat kich ban va cac gia dinh quan trong trong job JSON de cac lan chinh sua sau co the tai hien.
+
+## Lua chon template va hieu ung
+
+- Rieng cac video Trung tam Tin hoc Sao Viet, nguoi dung da cho phep chu dong tim kiem tren mang cac website cua trung tam de nghien cuu noi dung lien quan khi len y tuong/kich ban, va tai anh tu bai viet phu hop de dua vao video. Quyen nay khong mo rong sang trung tam khac, media bat ky tren mang hay dich vu AI online. Xac minh dung trung tam/website chinh thuc truoc khi dua thong tin vao kich ban; neu co nhieu don vi trung ten khong the phan biet, hoi link chinh thuc. Khong hoi lai quyen tim kiem/lay anh da duoc cap nay.
+- Uu tien trang khoa hoc va bai viet lien quan truc tiep muc tieu video. Ghi URL, tieu de, ngay truy cap, ngay dang/cap nhat neu co va thong tin nao duoc dung; khong lay hoc phi, lich khai giang, dia chi hay cam ket cu lam thong tin hien tai neu chua xac minh. Luu anh tai moi trong thu muc con rieng cua `assets/images/<project-id>/`, giu nguyen tep cu, xem preview/kiem tra chat luong va tinh phu hop truoc khi dung. Luu nguon trang va URL anh, ghi chu quyen su dung/ghi cong trong manifest va metadata job. Su cho phep cua nguoi dung khong tu chung minh ban quyen anh; kiem tra anh thuoc trung tam hay ben thu ba, khong vuot rao truy cap hay xoa watermark. Neu quyen tai su dung khong ro, uu tien anh nguoi dung cung cap va chi hoi ve anh do khi can thiet. Tom tat cac nguon da dung khi giao san pham.
+- Nguoi dung yeu cau Codex lam viec nhu editor: tu nghien cuu, len y tuong va chon phong cach rieng cho tung video. Truoc khi dung, ghi concept, doi tuong, hook, nhip dung, bo cuc, mau sac, cach dung chu, chuyen canh va dinh huong am thanh trong metadata cua job. Giai thich ngan gon concept da chon, khong bat nguoi dung tu chon tung chi tiet.
+- Doi chieu voi cac video truoc de tranh lap bo cuc/mac dinh. Phong cach phai theo noi dung va tai nguyen (vi du gan gui cho lop hoc, toi gian cho san pham, documentary cho cau chuyen); khong chi thay mau tren cung mot template. Tai su dung ky thuat, nhung thay doi ngon ngu hinh anh khi brief khac.
+- Danh gia nhu san pham truyen thong: hook trong vai giay dau, anh chu dao, thu tu canh co chu dich, chu ngan de doc, phu de chia cum, bien thien nhip dung va diem ket thuc ro rang. Khong dung mot bo cuc chia doi chu/anh cho toan video neu khong co ly do bien tap.
+- Kiem tra nhac trong ban mix that, do muc nhac rieng va loi doc; khong chi xac nhan ton tai stream audio. Nhac phai nghe ro o doan khong loi, giam muot khi co loi doc. Neu khong the nghe truc tiep, noi ro gioi han, khong nhan da tham dinh chat luong am thanh bang tai.
+
+- Kiem tra cac composition/template da co trong `src/` va tai nguyen cua job truoc khi chon.
+- Uu tien template co san, phu hop voi ti le khung hinh va muc dich; chi them template/module tai su dung khi chua co lua chon phu hop.
+- Hieu ung phai phuc vu noi dung va doc de theo doi. Khong tu them hieu ung phuc tap hoac chuyen canh khong duoc yeu cau.
+- Cac composition Remotion dung chung dat trong `src/compositions/`; logic tai su dung dat trong cac module con cua `src/` theo nhu cau thuc te.
+
+## Render va kiem tra
+
+- Dung `npm run studio` de mo Remotion Studio va kiem tra composition khi can.
+- Chi render khi job va composition da duoc tao cho yeu cau hien tai. Lenh Remotion co dang `npx remotion render src/index.ts <CompositionId> <duong-dan-dau-ra>`; kiem tra tham so theo CLI dang cai truoc khi chay.
+- Render video vao `output/videos/`, anh xem truoc vao `output/previews/`, va tep trung gian vao thu muc rieng theo job ben trong `temp/`.
+- Ten dau ra phai doc duoc, theo `kebab-case`, kem ID hoac timestamp de duy nhat. Kiem tra duong dan dich truoc khi render; khong dung tuy chon ghi de.
+- Tuyet doi khong xoa hoac ghi de video, preview, job hay tai nguyen da ton tai. Neu ten dich bi trung, tao ten moi va render vao tep moi.
+- Sau render, xac nhan lenh thanh cong, tep ton tai va co dung luong khac 0; dung FFprobe kiem tra codec, do phan giai, FPS, thoi luong va am thanh theo job. Xem preview/frame dau-cuoi neu cong cu cho phep. Neu kiem tra that bai, sua va render vao ten tep moi.
+- Chi bao hoan tat khi da kiem tra tep dau ra. Neu khong the xem/nghe hoac kiem tra mot tieu chi, neu ro gioi han do trong phan bao cao.
+
+## Sua video theo yeu cau tiep theo
+
+- Xac dinh job va tep dau ra lien quan tu mo ta/ID cua nguoi dung; neu khong ro, hoi lai thay vi sua nham job.
+- Cap nhat job JSON va cac module/composition can thiet, giu nguyen ban dau va cac tep render cu.
+- Tao ten dau ra moi cho moi lan render sua doi; kiem tra lai toan bo cac tieu chi bi anh huong va bao cao tep moi cung nhung thay doi chinh.
+
+## Bao ve tep va pham vi thay doi
+
+- Khong xoa, di chuyen, doi ten, hoac ghi de tai nguyen dau vao va san pham da tao neu chua duoc nguoi dung yeu cau ro rang.
+- Khong doc/dua vao video cac tep nam ngoai workspace, cac duong dan ngoai danh sach tai nguyen, hoac nguon internet neu chua duoc phep.
+- Chi tao/sua cac tep can thiet cho job hien tai; giu lai cac job va dau ra khac.

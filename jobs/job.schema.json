@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ai-video-maker/job.schema.json",
+  "title": "AI Video Maker job",
+  "description": "Initial contract for a video brief and its scene-level assets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "format", "scenes"],
+  "properties": {
+    "metadata": {"type": "object", "description": "Brief, assumptions, credits, audio settings and source inventory."},
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "format": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height", "fps", "durationInFrames"],
+      "properties": {
+        "width": {"type": "integer", "minimum": 1},
+        "height": {"type": "integer", "minimum": 1},
+        "fps": {"type": "number", "exclusiveMinimum": 0},
+        "durationInFrames": {"type": "integer", "minimum": 1}
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "durationInFrames", "assets"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "durationInFrames": {"type": "integer", "minimum": 1},
+          "assets": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Project-relative path, normally under assets/."
+            }
+          },
+          "text": {"type": "string"},
+          "label": {"type": "string"},
+          "description": {"type": "string"},
+          "narration": {"type": "string"},
+          "audio": {"type": "string"},
+          "transition": {"type": "string"}
+        }
+      }
+    }
+  }
+}

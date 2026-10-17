@@ -1,0 +1,10 @@
+{
+  "projects": [
+    {
+      "id": "MyCourseIntro",
+      "component": "src/projects/MyCourseIntro.tsx",
+      "exportName": "MyCourseIntro",
+      "job": "jobs/my-course-intro-v1.json"
+    }
+  ]
+}
