@@ -1,0 +1,27 @@
+{
+  "videoRoot": "output/videos",
+  "platforms": {
+    "facebook": {
+      "label": "Facebook",
+      "channels": {
+        "tin-hoc-van-phong": "Tin học văn phòng",
+        "ke-toan": "Kế toán",
+        "photoshop": "Photoshop",
+        "ky-thuat": "Kỹ thuật"
+      }
+    },
+    "tiktok": {
+      "label": "TikTok",
+      "channels": {
+        "tin-hoc-van-phong": "Tin học văn phòng",
+        "ke-toan": "Kế toán",
+        "photoshop": "Photoshop",
+        "ky-thuat": "Kỹ thuật"
+      }
+    },
+    "youtube": {
+      "label": "YouTube",
+      "channels": {}
+    }
+  }
+}

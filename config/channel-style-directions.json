@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "status": "Editorial starting points; adapt to each brief, not fixed templates",
+  "rules": [
+    "Give each platform/channel combination a distinct visual and editorial identity.",
+    "Never restyle an unrelated channel template merely by changing text, colors or assets.",
+    "Choose pacing, layouts, demonstrations, typography, transitions, sound and covers for the subject.",
+    "Reuse technical modules, not entire editorial treatments across unrelated channels.",
+    "Keep shared Sao Viet branding and vary concepts within each channel."
+  ],
+  "channels": {
+    "tin-hoc-van-phong": {
+      "direction": "Clear, approachable software practice",
+      "visuals": "Readable spreadsheets/documents, selected cells, cursor-led demonstrations, before/after results",
+      "pacing": "Short instructions with enough time to read and repeat the operation",
+      "avoid": "Decorative motion that obscures formulas or instructions"
+    },
+    "ke-toan": {
+      "direction": "Precise, credible, practical accounting explanations",
+      "visuals": "Transaction flow, clearly labeled illustrative figures, document details, reconciliation and error correction",
+      "pacing": "Problem, reasoning, worked result; pause at figures that need explanation",
+      "avoid": "Invented regulations, unsupported tax claims, excessive playful effects"
+    },
+    "photoshop": {
+      "direction": "Visual transformation and creative craft",
+      "visuals": "Before/after reveals, crops, layers, masks, color transformations and image details",
+      "pacing": "Result-led hook followed by selected stages of the creative process",
+      "avoid": "Spreadsheet-style layouts or text-heavy explanations replacing the visual transformation"
+    },
+    "ky-thuat": {
+      "direction": "Concrete mechanisms, structure and hands-on process",
+      "visuals": "Equipment/detail shots, technical drawings or diagrams when relevant, annotations, dimensions and step-by-step assembly/operation",
+      "pacing": "Overview, relevant detail, action or mechanism, result; let technical actions remain legible",
+      "avoid": "Office-course spreadsheet templates, invented specifications or irrelevant blueprint decoration"
+    }
+  },
+  "platforms": {
+    "tiktok": "Immediate practical hook, vertical framing, close demonstrations, short captions, controlled changes of pace and a concise CTA",
+    "facebook": "Adapt to Reels or feed placement; accessible context, community/course relevance and a suitable invitation to interact",
+    "youtube": "Distinguish Shorts from regular video; use coherent explanation, orientation and topic progression appropriate to the selected format"
+  }
+}

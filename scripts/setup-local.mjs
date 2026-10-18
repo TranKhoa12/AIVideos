@@ -4,6 +4,15 @@ import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const local=rel=>{const abs=path.resolve(root,rel);if(!abs.startsWith(root+path.sep))throw Error(`Path outside workspace: ${rel}`);return abs;};
 for(const dir of ['assets/images','assets/videos','assets/audio','assets/logos/logo-chung','jobs','output/videos','output/previews','output/covers','output/posts','temp','tools','src/projects','src/generated','config'])fs.mkdirSync(local(dir),{recursive:true});
+const publishing=JSON.parse(fs.readFileSync(local('config/publishing-channels.json'),'utf8'));
+for(const [platform,settings] of Object.entries(publishing.platforms)){
+ if(!/^[a-z0-9-]+$/.test(platform))throw Error('Invalid platform directory');
+ fs.mkdirSync(local(`${publishing.videoRoot}/${platform}`),{recursive:true});
+ for(const channel of Object.keys(settings.channels)){
+  if(!/^[a-z0-9-]+$/.test(channel))throw Error('Invalid channel directory');
+  fs.mkdirSync(local(`${publishing.videoRoot}/${platform}/${channel}`),{recursive:true});
+ }
+}
 if(!fs.existsSync(local('config/voice-defaults.json')))fs.copyFileSync(local('config/voice-defaults.example.json'),local('config/voice-defaults.json'),fs.constants.COPYFILE_EXCL);
 const registry='config/projects.local.json';
 if(!fs.existsSync(local(registry)))fs.writeFileSync(local(registry),JSON.stringify({projects:[]},null,2)+'\n',{flag:'wx'});

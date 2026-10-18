@@ -60,7 +60,9 @@ src/
   generated/                Registry tự sinh (không commit)
 scripts/                    Công cụ thiết lập, âm thanh và kiểm tra
 output/
-  videos/<project-id>/      Video xuất
+  videos/facebook/<channel-id>/  Video cho từng page Facebook
+  videos/tiktok/<channel-id>/    Video cho từng kênh TikTok
+  videos/youtube/               Video YouTube, không chia kênh con
   previews/<project-id>/    Khung hình kiểm tra
   covers/<project-id>/      Ảnh bìa
   posts/<project-id>/       Bài Facebook, mô tả YouTube…
@@ -69,6 +71,8 @@ tools/                      Python environment, model, cache local
 ```
 
 ID dùng chữ thường không dấu, chữ số và dấu gạch nối. Các dự án độc lập không trộn tài nguyên. Tệp đầu vào không bị chỉnh sửa khi dựng.
+
+Facebook và TikTok có bốn nhóm: `tin-hoc-van-phong`, `ke-toan`, `photoshop`, `ky-thuat`. Cấu hình nằm trong `config/publishing-channels.json`; setup tự tạo các thư mục. Khi nhận yêu cầu, Codex xác định nền tảng và page/kênh ngay, tự phân loại khi nội dung rõ ràng (ví dụ Excel → Tin học văn phòng), hỏi nếu còn mơ hồ. Tên video chứa project-id và video-id để tránh nhầm/trùng. Các sản phẩm trước khi áp dụng cấu trúc này vẫn giữ vị trí cũ.
 
 ## Đăng ký video trong Studio
 
@@ -127,7 +131,7 @@ Sau khi có component, job và registry:
 
 ```powershell
 npm run setup
-npx remotion render src/index.ts MyCourseIntro output/videos/my-project/intro-v1.mp4
+npx remotion render src/index.ts MyCourseIntro output/videos/tiktok/tin-hoc-van-phong/my-project-intro-v1.mp4
 ```
 
 Dùng tên đầu ra mới mỗi lần render; cấu hình hiện tại không cho ghi đè. Kiểm tra codec, kích thước, FPS, thời lượng, hình đầu–cuối, bố cục và âm thanh trước khi giao. FFmpeg/FFprobe có trong dependency `ffmpeg-static` và `ffprobe-static`.
