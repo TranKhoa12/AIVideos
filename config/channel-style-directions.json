@@ -6,7 +6,8 @@
     "Never restyle an unrelated channel template merely by changing text, colors or assets.",
     "Choose pacing, layouts, demonstrations, typography, transitions, sound and covers for the subject.",
     "Reuse technical modules, not entire editorial treatments across unrelated channels.",
-    "Keep shared Sao Viet branding and vary concepts within each channel."
+    "Keep shared Sao Viet branding and vary concepts within each channel.",
+    "Latest user preference 2026-10-20: domain-specific, lively, easy-to-understand visual explanations; narration-led edits without long empty pauses."
   ],
   "channels": {
     "tin-hoc-van-phong": {
@@ -17,8 +18,8 @@
     },
     "ke-toan": {
       "direction": "Precise, credible, practical accounting explanations",
-      "visuals": "Transaction flow, clearly labeled illustrative figures, document details, reconciliation and error correction",
-      "pacing": "Problem, reasoning, worked result; pause at figures that need explanation",
+      "visuals": "Accounting scenarios, sales receipts, expense allocation, transaction flows and animated calculation steps. Motion must explain where figures come from; avoid static text-card sequences.",
+      "pacing": "Continuous clear narration, short purposeful pauses, scene duration measured from actual speech; reveal figures when mentioned.",
       "avoid": "Invented regulations, unsupported tax claims, excessive playful effects"
     },
     "photoshop": {

@@ -1,5 +1,12 @@
 # Huong dan cho Codex
 
+## Phan hoi bien tap moi nhat — 2026-10-20
+
+- YEU CAU CHUNG CHO TAT CA VIDEO TIEP THEO: lam video sinh dong bang vi du cu the, tinh huong gan gui va hinh anh minh hoa phu hop noi dung. Chu dong dung so do, vat the, thao tac/mo phong, so sanh truoc-sau va chuyen dong tung buoc de nguoi xem hieu; khong chi trinh chieu chu hay cac card tinh. Moi linh vuc/chu de can ngon ngu minh hoa rieng. Hieu ung va hinh anh phai phuc vu loi giai thich, khong trang tri roi mat. Chi dung tai nguyen da duoc phep; yeu cau nay khong tu cap quyen lay media tren mang hay goi AI online. Ap dung khi tao/sua video, khong tu render lai toan bo video cu.
+- Moi video can thiet ke dac thu theo linh vuc/kenh va chu de cu the, sinh dong, de hieu. Voi Ke toan, dung tinh huong giao dich, chung tu minh hoa, dong phan bo doanh thu/chi phi va phep tinh tung buoc; chuyen dong phai giai thich quan he giua cac con so. Khong dung mot loat card chu/bang tinh tinh hoac chi doi mau template kenh khac.
+- Loi doc can lien mach, tranh khoang nghi dai giua cac canh. Do thoi luong audio that, rut khoang lang thua va dat chuyen canh sat nhip loi doc; chi nghi ngan co chu dich de xem con so/ket qua. Khong co dinh canh dai hon loi doc nhieu giay. Kiem tra khoang lang cua ban mix truoc khi giao, giu du thoi gian nhan dien CTA.
+- Yeu cau nay ap dung cho cac lan tao/sua tiep theo; khong tu render lai video doc lap khac.
+
 ## Don dung luong sau moi phien ban (yeu cau moi nhat)
 
 - Nguoi dung da cho phep tu dong xoa cac phien ban video cu va du lieu phat sinh lien quan sau moi lan tao/sua video, nhung GIU TOAN BO bai viet/post. Quy tac nay uu tien hon cac dieu khoan giu phien ban cu ben duoi, chi trong pham vi don dep duoc mo ta o day; khong can hoi lai quyen xoa da duoc cap.
