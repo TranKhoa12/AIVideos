@@ -97,7 +97,7 @@ Composition local có thể nhập job local. Mã dùng chung không nhập tr�
 
 ## Giọng đọc và nhạc local
 
-Cấu hình mẫu dùng **Mai Chi / ZeroTTS 0.1.5**. Định hướng là nữ, tự nhiên, vui vẻ, miền Nam; vùng miền của preset chưa được tài liệu xác nhận. Cần nghe mẫu để đánh giá; ASR không thay thế việc nghe.
+**Mỗi video mới phải hỏi người dùng chọn giọng nam/nữ hoặc preset trước khi tổng hợp.** Không tự dùng Mai Chi. ZeroTTS 0.1.5 có các preset nam/nữ; ví dụ Mai Chi (nữ), Quang Minh (nam). Vùng miền của các preset chưa được tài liệu xác nhận. Cần nghe mẫu để đánh giá; ASR không thay thế việc nghe. `--voice` chỉ dùng sau khi đã xác nhận lựa chọn cho video đó.
 
 Clone repository không bao gồm môi trường Python hay model. Thiết lập tùy chọn:
 
@@ -118,7 +118,7 @@ Tạo thư mục, tệp lời dẫn UTF-8 rồi chạy:
 
 ```powershell
 tools/zerotts-env/Scripts/python.exe -X utf8 scripts/narrate-local.py --inspect
-tools/zerotts-env/Scripts/python.exe -X utf8 scripts/narrate-local.py --text-file temp/my-job/narration.txt --output assets/audio/my-project/narration-v1.wav
+tools/zerotts-env/Scripts/python.exe -X utf8 scripts/narrate-local.py --voice quangminh --text-file temp/my-job/narration.txt --output assets/audio/my-project/narration-v1.wav
 ```
 
 Script từ chối ghi đè, chỉ đọc/ghi trong workspace và báo lỗi nếu thiếu model; không chuyển sang AI online.

@@ -1,6 +1,8 @@
 {
   "version": 1,
   "scope": "all-video-projects-in-this-workspace",
+  "selectionMode": "ask-per-video",
+  "requireSelectionBeforeSynthesis": true,
   "engine": "zerotts",
   "packageVersion": "0.1.5",
   "modelId": "zeroweight-ai/ZeroTTS",

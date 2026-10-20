@@ -3,7 +3,7 @@
 Dat cac cong cu tai su dung cho viec kiem tra tai nguyen, xu ly FFmpeg/FFprobe va render Remotion tai day.
 
 - `tts-local.py`: tao loi doc tieng Viet offline bang Piper, tu choi ghi de.
-- `narrate-local.py`: loi doc dung chung theo `config/voice-defaults.json`; engine ZeroTTS local, preset Mai Chi. Chay `tools/zerotts-env/Scripts/python.exe -X utf8 scripts/narrate-local.py --text-file temp/<job-id>/narration.txt --output assets/audio/<project-id>/narration-<unique-id>.wav`. Khong tu doi giong, khong ghi de, khong dung dich vu online. Vung mien preset chua duoc tai lieu xac nhan.
+- `narrate-local.py`: ZeroTTS local theo `config/voice-defaults.json`, hoi giong truoc moi video. Sau khi da xac nhan, chay `tools/zerotts-env/Scripts/python.exe -X utf8 scripts/narrate-local.py --voice <preset> --text-file temp/<job-id>/narration.txt --output assets/audio/<project-id>/narration-<unique-id>.wav`. Vi du preset maichi (nu), quangminh (nam). Khong ghi de, khong dung dich vu online, khong tu gan vung mien.
 - `tts-vieneu-local.py`: tao giong doc tu preset VieNeu-TTS v3 Turbo offline; xem `vieneu-local.md` cho giong nu mien Nam.
 - `local-audio.md`: huong dan, vi tri engine/model va thong tin giay phep.
 - `mix-local.py`: tron nhac WAV va loi doc theo timeline, can RMS, ducking muot va headroom; chi doc/ghi trong workspace va tu choi ghi de.

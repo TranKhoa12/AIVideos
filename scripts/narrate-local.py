@@ -23,6 +23,7 @@ def main():
     parser.add_argument('--text-file')
     parser.add_argument('--output')
     parser.add_argument('--inspect',action='store_true')
+    parser.add_argument('--voice',help='Voice preset selected for this video; required in ask-per-video mode')
     args=parser.parse_args()
     config=json.loads((ROOT/'config/voice-defaults.json').read_text(encoding='utf-8'))
     model=local(config['modelDirectory'])
@@ -30,9 +31,17 @@ def main():
         raise ValueError('Unsupported shared voice configuration')
     if not model.is_dir():
         raise FileNotFoundError('Local voice model unavailable; no online fallback')
+    if args.voice:
+        index=json.loads((model/'voices/index.json').read_text(encoding='utf-8'))
+        voice=next((v for v in index['voices'] if v['name']==args.voice),None)
+        if not voice or not (model/'voices'/args.voice/'voice.npz').is_file():
+            raise ValueError('Selected voice not available locally')
+        config={**config,'preset':voice['name'],'displayName':voice['display_name'],'gender':'male' if voice['gender']=='nam' else 'female','selectionBasis':'Explicit voice selection for this video; see job approval.','referenceSample':None}
     if args.inspect:
-        print(json.dumps({'engine':config['engine'],'preset':config['preset'],'requestedAccent':config['requestedAccent'],'presetAccent':config['presetAccent'],'modelPresent':True,'offlineOnly':True}))
+        print(json.dumps({'engine':config['engine'],'preset':config['preset'],'selectionMode':config.get('selectionMode'),'requestedAccent':config['requestedAccent'],'presetAccent':config['presetAccent'],'modelPresent':True,'offlineOnly':True}))
         return
+    if config.get('requireSelectionBeforeSynthesis') and not args.voice:
+        raise ValueError('Ask the user which voice to use for this video, then pass --voice <preset>')
     if not sys.flags.utf8_mode:
         raise RuntimeError('Run Python with -X utf8 on Windows')
     if not args.text_file or not args.output:

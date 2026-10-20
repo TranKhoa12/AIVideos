@@ -14,10 +14,11 @@ for(const c of job.metadata.captions)if(c.start<0||c.end<=c.start||c.end>job.for
 function stats(file,start,duration){const r=spawnSync(ffmpeg,['-hide_banner','-ss',String(start),'-t',String(duration),'-i',local(file),'-vn','-af','volumedetect','-f','null','-'],{encoding:'utf8'});if(r.status)throw Error(r.stderr);return {meanDb:Number(r.stderr.match(/mean_volume: ([-\d.]+)/)[1]),peakDb:Number(r.stderr.match(/max_volume: ([-\d.]+)/)[1])};}
 const duration=job.format.durationInFrames/job.format.fps,last=job.metadata.timings.at(-1);
 const silentGaps=job.metadata.timings.map((t,i,list)=>({start:t.voiceDuration?t.voiceStart+t.voiceDuration+.4:t.from/job.format.fps+.2,end:i+1<list.length?list[i+1].voiceStart:duration-.3})).filter(g=>g.end-g.start>=1.2);
-if(!silentGaps.length)throw Error('No music-only interval for verification');
+const voiceOnly=job.metadata.audioMode==='voice-only';
+if(!voiceOnly&&!silentGaps.length)throw Error('No music-only interval for verification');
 const musicGap=silentGaps[0];
-const levels={mix:stats(input,0,duration),voice:stats(job.metadata.voiceStem,.3,Math.min(duration-3,30)),musicUnderVoice:stats(job.metadata.musicStem,.3,Math.min(duration-3,30)),musicOnly:stats(input,musicGap.start,1.2)};
-if(levels.mix.peakDb>-.5||levels.musicOnly.meanDb<-28||levels.voice.meanDb<levels.musicUnderVoice.meanDb+3)throw Error('Audio balance failed');
+const levels={mix:stats(input,0,duration),voice:stats(job.metadata.voiceStem,.3,Math.min(duration-3,30)),...(!voiceOnly?{musicUnderVoice:stats(job.metadata.musicStem,.3,Math.min(duration-3,30)),musicOnly:stats(input,musicGap.start,1.2)}:{})};
+if(levels.mix.peakDb>-.5||!Number.isFinite(levels.voice.meanDb)||(!voiceOnly&&(levels.musicOnly.meanDb<-28||levels.voice.meanDb<levels.musicUnderVoice.meanDb+3)))throw Error('Audio balance failed');
 const cover=info(job.metadata.cover);if(cover.streams[0].width!==job.format.width||cover.streams[0].height!==job.format.height)throw Error('Cover size mismatch');
 if(!fs.existsSync(local(job.metadata.post)))throw Error('Post missing');
 const dir=`output/previews/${job.metadata.projectId}`;
