@@ -10,6 +10,12 @@
     "Latest user preference 2026-10-20: domain-specific, lively, easy-to-understand visual explanations; narration-led edits without long empty pauses."
   ],
   "channels": {
+    "autocad": {
+      "direction": "Teach AutoCAD with precise, lively drawing demonstrations and concrete geometric examples",
+      "visuals": "CAD model-space grid, crosshair, selected geometry, command prompts, dimension annotations, before/after overlays; reveal construction steps as narrated",
+      "pacing": "Show the finished geometric result first, then demonstrate command, parameter, object selection and result with short purposeful pauses",
+      "avoid": "Static text-card sequences, reusing accounting or Office layouts, misleading simulation presented as an actual software capture, decorative motion obscuring geometry"
+    },
     "tin-hoc-van-phong": {
       "direction": "Clear, approachable software practice",
       "visuals": "Readable spreadsheets/documents, selected cells, cursor-led demonstrations, before/after results",
