@@ -63,7 +63,7 @@
 
 - Khi nguoi dung yeu cau tao du an moi, tu tao thu muc trong workspace, khong yeu cau nguoi dung tao thu cong hoac xac nhan lai thao tac nay.
 - Dung ten du an de tao ID kebab-case khong dau. Neu chua co ten hoac khong the suy ra ten tu yeu cau, hoi ten truoc khi tao. Chi chap nhan ID gom chu cai thuong, chu so va dau gach noi; khong dung duong dan do nguoi dung cung cap lam ID.
-- Tao `assets/images/<project-id>/`, `assets/videos/<project-id>/`, `assets/audio/<project-id>/`, `assets/logos/<project-id>/`, `output/videos/<project-id>/` va `output/previews/<project-id>/`.
+- Tao `assets/images/<project-id>/`, `assets/videos/<project-id>/`, `assets/audio/<project-id>/`, `assets/logos/<project-id>/` va `output/previews/<project-id>/`. KHONG tao `output/videos/<project-id>/` cho du an moi: video dung duong dan nen tang/kenh o phan tiep nhan ben duoi. Cac thu muc video cu theo project chi giu khi con san pham hoac tham chieu dang dung.
 - Kiem tra trung ID trong ca thu muc tai nguyen, dau ra va ten job. Voi du an moi bi trung, them hau to so de co ID duy nhat; khong tron tai nguyen cu. Voi yeu cau tiep tuc du an cu da xac dinh, dung lai ID do va chi bo sung thu muc con con thieu.
 - Bao ID va duong dan cac thu muc de nguoi dung chep tai nguyen vao. Khong tao job video, composition hay render chi vi nguoi dung yeu cau tao thu muc; chi tao job khi da co brief va thong tin can thiet theo quy trinh ben duoi.
 - Moi job cua du an dung ten `<project-id>-<video-id>.json` trong `jobs/`; dau ra nam trong thu muc du an tuong ung, tep trung gian nam trong `temp/<job-id>/`. Duong dan tai nguyen trong job van tuong doi workspace.

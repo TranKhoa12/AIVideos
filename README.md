@@ -39,6 +39,8 @@ Ví dụ yêu cầu:
 
 ## Cấu trúc thư mục
 
+Video mới xuất theo nền tảng/kênh; không tạo thêm `output/videos/<project-id>/`. Các thư mục theo project còn chứa sản phẩm cũ được giữ nguyên. `npm run setup` tạo sẵn các kênh Facebook/TikTok và thư mục YouTube, nên kênh chưa có video có thể trống. Thư mục ảnh, video nguồn và logo riêng của dự án cũng có thể trống khi video chỉ dùng mô phỏng bằng mã và logo dùng chung.
+
 ```text
 assets/
   images/<project-id>/       Ảnh nguồn
