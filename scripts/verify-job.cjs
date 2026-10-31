@@ -1,5 +1,6 @@
 const fs=require('fs'),path=require('path'),{execFileSync,spawnSync}=require('child_process');
 const ffmpeg=require('ffmpeg-static'),ffprobe=require('ffprobe-static').path;
+const {previewsFor}=require('./output-layout.cjs');
 const root=process.cwd();
 const local=rel=>{const p=path.resolve(root,rel);if(!p.startsWith(root+path.sep))throw Error('Path outside workspace');return p;};
 const job=JSON.parse(fs.readFileSync(local(process.argv[2]),'utf8'));
@@ -21,7 +22,7 @@ const levels={mix:stats(input,0,duration),voice:stats(job.metadata.voiceStem,.3,
 if(levels.mix.peakDb>-.5||!Number.isFinite(levels.voice.meanDb)||(!voiceOnly&&(levels.musicOnly.meanDb<-28||levels.voice.meanDb<levels.musicUnderVoice.meanDb+3)))throw Error('Audio balance failed');
 const cover=info(job.metadata.cover);if(cover.streams[0].width!==job.format.width||cover.streams[0].height!==job.format.height)throw Error('Cover size mismatch');
 if(!fs.existsSync(local(job.metadata.post)))throw Error('Post missing');
-const dir=`output/previews/${job.metadata.projectId}`;
+const dir=previewsFor(job);fs.mkdirSync(local(dir),{recursive:true});
 const frames=job.metadata.timings.map(t=>t.from+Math.min(Math.round(t.duration*.56),t.duration-1));
 const sheet=`${dir}/${job.id}-contact.jpg`;
 execFileSync(ffmpeg,['-v','error','-n','-i',local(input),'-vf','select='+frames.map(n=>`eq(n\\,${n})`).join('+')+',scale=270:480,tile=4x2','-frames:v','1',local(sheet)]);

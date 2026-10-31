@@ -2,6 +2,7 @@
 const fs=require('fs'),path=require('path'),crypto=require('crypto');
 const {bundle}=require('@remotion/bundler');
 const {openBrowser,selectComposition,renderStill,renderMedia}=require('@remotion/renderer');
+const {previewsFor,writeDeliveryManifest}=require('./output-layout.cjs');
 const root=process.cwd();
 const local=rel=>{const p=path.resolve(root,rel);if(!p.startsWith(root+path.sep))throw Error('Outside workspace');return p;};
 const [jobFile,mode='preview']=process.argv.slice(2);
@@ -21,13 +22,15 @@ async function main(){
   const composition=await selectComposition({serveUrl,id:job.metadata.compositionId,puppeteerInstance:browser});
   const cover=job.metadata.coverCompositionId?await selectComposition({serveUrl,id:job.metadata.coverCompositionId,puppeteerInstance:browser}):null;
   if(mode==='preview'){
-   const dir=local(`output/previews/${job.metadata.projectId}/${job.id}-review-${revision}`);if(fs.existsSync(dir))throw Error('Review directory exists');fs.mkdirSync(dir,{recursive:true});
+   const dir=local(`${previewsFor(job)}/${job.id}-review-${revision}`);if(fs.existsSync(dir))throw Error('Review directory exists');fs.mkdirSync(dir,{recursive:true});
    for(const [i,t]of job.metadata.timings.entries()){const frame=t.from+Math.min(Math.round(t.duration*.56),t.duration-1);await renderStill({serveUrl,composition,puppeteerInstance:browser,frame,output:path.join(dir,`scene-${i+1}.png`),imageFormat:'png',overwrite:false});console.log('Preview '+(i+1));}
    if(cover)await renderStill({serveUrl,composition:cover,puppeteerInstance:browser,frame:0,output:path.join(dir,'cover.png'),imageFormat:'png',overwrite:false});console.log('Review '+path.relative(root,dir));
   }else{
    if(fs.existsSync(local(job.metadata.output))||mode==='render'&&job.metadata.cover&&fs.existsSync(local(job.metadata.cover)))throw Error('Output exists; use a new version');
+   for(const file of [job.metadata.output,mode==='render'&&job.metadata.cover].filter(Boolean))fs.mkdirSync(path.dirname(local(file)),{recursive:true});
    let last=-1;await renderMedia({serveUrl,composition,puppeteerInstance:browser,outputLocation:local(job.metadata.output),codec:'h264',audioCodec:'aac',pixelFormat:'yuv420p',crf:19,concurrency:4,overwrite:false,onProgress:p=>{const n=Math.floor(p.progress*10);if(n!==last){last=n;console.log(`Render ${Math.round(p.progress*100)}%`);}}});
    if(cover&&mode==='render')await renderStill({serveUrl,composition:cover,puppeteerInstance:browser,frame:0,output:local(job.metadata.cover),imageFormat:'png',overwrite:false});
+   writeDeliveryManifest(job);
    console.log('Finished '+job.metadata.output);
   }
  }finally{await browser.close({silent:true});}

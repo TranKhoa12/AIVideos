@@ -1,5 +1,6 @@
 {
-  "videoRoot": "output/videos",
+  "layoutVersion": 2,
+  "outputRoot": "output",
   "platforms": {
     "facebook": {
       "label": "Facebook",

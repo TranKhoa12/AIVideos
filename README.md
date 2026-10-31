@@ -39,8 +39,7 @@ Ví dụ yêu cầu:
 
 ## Cấu trúc thư mục
 
-Video mới xuất theo nền tảng/kênh; không tạo thêm `output/videos/<project-id>/`. Các thư mục theo project còn chứa sản phẩm cũ được giữ nguyên. `npm run setup` tạo sẵn các kênh Facebook/TikTok và thư mục YouTube, nên kênh chưa có video có thể trống. Thư mục ảnh, video nguồn và logo riêng của dự án cũng có thể trống khi video chỉ dùng mô phỏng bằng mã và logo dùng chung.
-
+Mỗi bộ đăng bài nằm trong một thư mục riêng, có đủ video, bài viết, poster và phụ đề để mở một lần là lấy được các file cần đăng. Dùng `node scripts/output-layout.cjs jobs/<job>.json` để lấy đường dẫn chuẩn. Setup chỉ tạo các gốc nền tảng; kênh và bộ đăng bài được tạo khi dùng thật.
 ```text
 assets/
   images/<project-id>/       Ảnh nguồn
@@ -62,19 +61,26 @@ src/
   generated/                Registry tự sinh (không commit)
 scripts/                    Công cụ thiết lập, âm thanh và kiểm tra
 output/
-  videos/facebook/<channel-id>/  Video cho từng page Facebook
-  videos/tiktok/<channel-id>/    Video cho từng kênh TikTok
-  videos/youtube/               Video YouTube, không chia kênh con
-  previews/<project-id>/    Khung hình kiểm tra
-  covers/<project-id>/      Ảnh bìa
-  posts/<project-id>/       Bài Facebook, mô tả YouTube…
+  tiktok/<channel-id>/<job-id>/
+    video.mp4               Video để đăng
+    bai-viet.md             Nội dung bài đăng
+    poster.png              Ảnh bìa (khi có)
+    phu-de.srt              Phụ đề rời (khi có)
+    ghi-cong.txt            Ghi công (khi có)
+    manifest.json           Danh sách thành phần
+    previews/               Khung hình kiểm tra
+    metadata/               Job và thông tin liên quan
+    archive/posts/          Bài viết cũ được giữ lại
+  facebook/<channel-id>/<job-id>/  Cùng cấu trúc
+  youtube/<job-id>/               Cùng cấu trúc, không chia kênh con
+  DANH-SACH.md              Mục lục các bộ đã chuẩn bị
 temp/<job-id>/              Tệp trung gian
 tools/                      Python environment, model, cache local
 ```
 
 ID dùng chữ thường không dấu, chữ số và dấu gạch nối. Các dự án độc lập không trộn tài nguyên. Tệp đầu vào không bị chỉnh sửa khi dựng.
 
-Facebook và TikTok có bốn nhóm: `tin-hoc-van-phong`, `ke-toan`, `photoshop`, `ky-thuat`. Cấu hình nằm trong `config/publishing-channels.json`; setup tự tạo các thư mục. Khi nhận yêu cầu, Codex xác định nền tảng và page/kênh ngay, tự phân loại khi nội dung rõ ràng (ví dụ Excel → Tin học văn phòng), hỏi nếu còn mơ hồ. Tên video chứa project-id và video-id để tránh nhầm/trùng. Các sản phẩm trước khi áp dụng cấu trúc này vẫn giữ vị trí cũ.
+Facebook/TikTok phân kênh theo `config/publishing-channels.json`, gồm các nhóm tin học văn phòng, kế toán, Photoshop, kỹ thuật; TikTok còn có kênh AutoCAD riêng. Nền tảng và kênh được xác định trước khi tạo job. Job-id duy nhất đặt ở tên thư mục bộ đăng bài; các file bên trong dùng tên dễ nhận biết như `video.mp4`, `bai-viet.md`, `poster.png`. Sản phẩm hiện có đã được gom theo cấu trúc này; mọi bài viết cũ vẫn được giữ.
 
 ## Đăng ký video trong Studio
 
@@ -133,7 +139,7 @@ Sau khi có component, job và registry:
 
 ```powershell
 npm run setup
-npx remotion render src/index.ts MyCourseIntro output/videos/tiktok/tin-hoc-van-phong/my-project-intro-v1.mp4
+npx remotion render src/index.ts MyCourseIntro output/tiktok/tin-hoc-van-phong/my-project-intro-v1/video.mp4
 ```
 
 Dùng tên đầu ra mới mỗi lần render; cấu hình hiện tại không cho ghi đè. Kiểm tra codec, kích thước, FPS, thời lượng, hình đầu–cuối, bố cục và âm thanh trước khi giao. FFmpeg/FFprobe có trong dependency `ffmpeg-static` và `ffprobe-static`.
