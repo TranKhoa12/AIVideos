@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "status": "Editorial starting points; adapt to each brief, not fixed templates",
   "rules": [
     "Give each platform/channel combination a distinct visual and editorial identity.",
@@ -7,7 +7,8 @@
     "Choose pacing, layouts, demonstrations, typography, transitions, sound and covers for the subject.",
     "Reuse technical modules, not entire editorial treatments across unrelated channels.",
     "Keep shared Sao Viet branding and vary concepts within each channel.",
-    "Latest user preference 2026-10-20: domain-specific, lively, easy-to-understand visual explanations; narration-led edits without long empty pauses."
+    "Latest user preference 2026-10-20: domain-specific, lively, easy-to-understand visual explanations; narration-led edits without long empty pauses.",
+    "User requirement 2026-10-31: all newly created or revised videos across platforms need topic-specific animation and purposeful lively color. Show real state changes, actions and results; text-card transitions alone do not satisfy this."
   ],
   "channels": {
     "autocad": {
@@ -45,5 +46,12 @@
     "tiktok": "Immediate practical hook, vertical framing, close demonstrations, short captions, controlled changes of pace and a concise CTA",
     "facebook": "Adapt to Reels or feed placement; accessible context, community/course relevance and a suitable invitation to interact",
     "youtube": "Distinguish Shorts from regular video; use coherent explanation, orientation and topic progression appropriate to the selected format"
+  },
+  "animationSkill": {
+    "name": "animated-topic-videos",
+    "workspaceSource": "skills/animated-topic-videos/SKILL.md",
+    "scope": "New and revised videos across platforms; do not rerender prior deliveries automatically",
+    "planning": "Describe initial state, action, result, explanatory purpose and narration cue in concept/job metadata",
+    "review": "Inspect frame sequences or motion excerpts, not only a midpoint still; keep text and numbers readable at phone size"
   }
 }

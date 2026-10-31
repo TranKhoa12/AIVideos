@@ -1,5 +1,12 @@
 # Huong dan cho Codex
 
+## Hoat canh va mau sac cho moi nen tang — 2026-10-31
+
+- Nguoi dung yeu cau ap dung hoat canh, mau sac sinh dong va minh hoa dac thu cho TAT CA video tao/sua tiep theo tren cac nen tang. Khong tu render lai video da giao. Khi len concept, storyboard, dung va review video, ap dung skill `animated-topic-videos`; ban nguon trong workspace: `skills/animated-topic-videos/SKILL.md`.
+- Hoat canh phai the hien thao tac/thay doi trang thai va ket qua tren vat the, chung tu, du lieu, hinh anh hoac bo phan lien quan. Khong coi fade/zoom, chu bat len, doi mau card hay chuoi bang/card tinh la da dap ung yeu cau. Khong ep moi chu de thanh hoat hinh nhan vat.
+- Tu thiet ke mau sac, bo cuc, nhip va ngon ngu minh hoa theo chu de/kenh/vi tri dang; mau va chuyen dong phai lam ro loi giai thich, giu chu/so lieu de doc. Khong chi doi mau composition cua kenh khac. Khong hoi nguoi dung tung hieu ung nho.
+- Mo ta hoat canh trong kich ban gui duyet va metadata job: trang thai dau, thao tac, ket qua, muc dich giai thich va moc loi doc. Review chuoi frame/clip de kiem tra chuyen dong that va dong bo, khong chi xem mot frame giua canh. Khong cap them quyen lay media, goi AI online hay dung lai tai nguyen chua duoc phep.
+
 ## Phan hoi bien tap moi nhat — 2026-10-20
 
 - Kenh TikTok AutoCAD (`autocad`) la kenh rieng da duoc nguoi dung xac nhan, tach khoi Ky thuat. Da them vao `config/publishing-channels.json` va `config/channel-style-directions.json`. Dau ra dung `output/videos/tiktok/autocad/`; khong tu gan noi dung AutoCAD sang Ky thuat khi brief chi dinh kenh AutoCAD.
